@@ -14,6 +14,10 @@ public class Anagram {
         areAnagram("Cat", "ACT"); // true
         areAnagram("MARY", "ARMY"); // true
         areAnagram("Sum", "um"); //false
+
+        System.out.println(areAnagram("CAT", "ACT"));
+        System.out.println(areAnagram("MARY", "ARMY"));
+        System.out.println(areAnagram("Sun", "um"));
     }
 
     public static boolean areAnagram (String word1, String word2) { // word1: "bob", word2: "obb"

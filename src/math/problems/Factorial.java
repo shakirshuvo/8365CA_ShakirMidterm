@@ -12,5 +12,29 @@ public class Factorial {
          *
          */
 
+        System.out.println(findFactorialUsingRecursion(5));
+        System.out.println(findFactorialUsingIteration(5));
+    }
+
+    // Factorial using recursion:
+    public static int findFactorialUsingRecursion(int n) {
+        if (n <= 1)
+            return 1;
+        else
+            return n * findFactorialUsingRecursion(n - 1);
+
+    }
+
+    // Factorial using Iteration
+    public static int findFactorialUsingIteration(int n) {
+        int result = 1;
+
+        for (int i = 1; i <= n; i++) {
+            result = result * i;
+
+
+        }
+        return result;
+
     }
 }

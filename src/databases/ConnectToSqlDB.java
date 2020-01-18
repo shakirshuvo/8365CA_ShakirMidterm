@@ -24,7 +24,7 @@ public class ConnectToSqlDB {
 
     public static Properties loadProperties() throws IOException{
         Properties prop = new Properties();
-        InputStream ism = new FileInputStream("src/secret.properties");
+        InputStream ism = new FileInputStream("C:\\Users\\Shakir\\Documents\\Midterm\\MidtermJuly2019\\src\\secret.properties");
         prop.load(ism);
         ism.close();
         return prop;
@@ -89,7 +89,7 @@ public class ConnectToSqlDB {
             connectToSqlDatabase();
             ps = connect.prepareStatement("DROP TABLE IF EXISTS `"+tableName+"`;");
             ps.executeUpdate();
-            ps = connect.prepareStatement("CREATE TABLE `"+tableName+"` (`ID` int(11) NOT NULL AUTO_INCREMENT,`SortingNumbers` bigint(20) DEFAULT NULL,  PRIMARY KEY (`ID`) );");
+            ps = connect.prepareStatement("CREATE TABLE `"+tableName+"` (`ID` int(11) NOT NULL AUTO_INCREMENT,`" + columnName + "` bigint(20) DEFAULT NULL,  PRIMARY KEY (`ID`) );");
             ps.executeUpdate();
             for(int n=0; n<ArrayData.length; n++){
                 ps = connect.prepareStatement("INSERT INTO "+tableName+" ( "+columnName+" ) VALUES(?)");
@@ -137,7 +137,22 @@ public class ConnectToSqlDB {
         }
         return data;
     }
-
+    //only use for EmployeeInfo <----
+    public void employeeInfoToSqlTable(int id, String employee, double salary)
+    {
+        try {
+            connectToSqlDatabase();
+            ps = connect.prepareStatement("INSERT INTO employeeinfo (id, employee, salary) VALUES ("+ id + ", " + employee + ", " + salary + ")");
+            ps.executeUpdate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    //only used for a student type <-----
     public void insertDataFromArrayListToSqlTable(List<Student> list, String tableName, String columnName)
     {
         try {
@@ -161,16 +176,59 @@ public class ConnectToSqlDB {
         }
     }
 
+    //will use for Integer type of list ---copied and pasted the above method
+    public void insertDataFromIntegerArrayListToSqlTable(List<Integer> list, String tableName, String columnName) {
+        try {
+            connectToSqlDatabase();
+            ps = connect.prepareStatement("DROP TABLE IF EXISTS `" + tableName + "`;");
+            ps.executeUpdate();
+            ps = connect.prepareStatement("CREATE TABLE `" + tableName + "` (`ID` int(11) NOT NULL AUTO_INCREMENT,`" + columnName + "` bigint(20) DEFAULT NULL,  PRIMARY KEY (`ID`) );");
+            ps.executeUpdate();
+            for (Integer i : list) {
+                ps = connect.prepareStatement("INSERT INTO " + tableName + " ( " + columnName + " ) VALUES(?)");
+                ps.setObject(1,i);
+                ps.executeUpdate();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
+    //will use for String type of list ---copied and pasted the above method
+    public void insertDataFromStringArrayListToSqlTable(ArrayList<String> list, String tableName, String columnName) {
+        try {
+            connectToSqlDatabase();
+            ps = connect.prepareStatement("DROP TABLE IF EXISTS `" + tableName + "`;");
+            ps.executeUpdate();
+            ps = connect.prepareStatement("CREATE TABLE `" + tableName + "` (`ID` int(11) NOT NULL AUTO_INCREMENT,`" + columnName + "` varchar(225) DEFAULT NULL,  PRIMARY KEY (`ID`) );");
+            ps.executeUpdate();
+            for (String s : list) {
+                ps = connect.prepareStatement("INSERT INTO " + tableName + " ( " + columnName + " ) VALUES(?)");
+                ps.setObject(1,s);
+                ps.executeUpdate();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //inserting tableName, and two values into the table of type string and int
     public void insertProfileToSqlTable(String tableName, String columnName1, String columnName2)
     {
         try {
             connectToSqlDatabase();
-                ps = connect.prepareStatement("INSERT INTO "+tableName+" ( " + columnName1 + "," + columnName2 + " ) VALUES(?,?)");
-                ps.setString(1,"Ankita Sing");
-                ps.setInt(2,3590);
-                ps.executeUpdate();
-
+            ps = connect.prepareStatement("INSERT INTO "+tableName+" ( " + columnName1 + "," + columnName2 + " ) VALUES(?,?)");
+            ps.setString(1,"Arif Hossain");
+            ps.setInt(2,4200);
+            ps.executeUpdate();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -215,5 +273,6 @@ public class ConnectToSqlDB {
         for(User user:list){
             System.out.println(user.getStName() + " " + user.getStID()+ " " + user.getStDOB());
         }
+//connectToSqlDatabase();
     }
 }

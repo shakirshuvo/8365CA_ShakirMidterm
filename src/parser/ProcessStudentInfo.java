@@ -1,7 +1,6 @@
 package parser;
 
 import databases.ConnectToMongoDB;
-import databases.ConnectToSqlDB;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

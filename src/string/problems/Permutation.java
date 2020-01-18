@@ -12,5 +12,12 @@ public class Permutation {
          * Write Java program to compute all Permutation of a String
          *
          */
+        if (args.length < 1) {
+            System.out.println("Usage: Java Permutations [word]");
+            return;
+        }
+
+        // Get word
+        String word = args[0];
     }
 }
